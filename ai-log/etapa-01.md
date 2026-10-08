@@ -4,7 +4,8 @@
 - Claude (claude.ai), Gemini
 
 ## Conversations
-- <LINK_SHARE> (LockerBox mockup: HTML structure, CSS variables, Grid/Flexbox, dark theme)
+- <https://claude.ai/chat/e136b79a-9b0a-450e-b4bb-b9e71817cb24> (LockerBox mockup: HTML structure, CSS variables, Grid/Flexbox, dark theme)
+- <https://gemini.google.com/app/6010f7ee60bf6e33> (For permalinks, but it didn't help me:( )
 
 ## Key requests
 ### 1. Page structure and CSS
