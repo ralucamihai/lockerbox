@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LockerBox Depot | American Highway Lockers</title>
+  <!-- Fonturi tematice americane & retro highway -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Oswald:wght@400;600;700&family=Rubik+Mono+One&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="highway-body">
+
+  <!-- Drum animat în fundal cu mașină -->
+  <div class="skyline">
+    <div class="stars"></div>
+    <div class="mountain-range"></div>
+  </div>
+
+  <div class="road-perspective">
+    <div class="asphalt">
+      <div class="road-lane-left"></div>
+      <div class="road-stripes"></div>
+      <div class="road-lane-right"></div>
+      <div class="cruising-car">
+        <div class="car-chassis">
+          <div class="car-light car-light-left"></div>
+          <div class="car-light car-light-right"></div>
+          <div class="car-windshield"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header stil Billboard American -->
+  <header class="highway-header">
+    <div class="billboard-title">
+      <div class="neon-border">
+        <h1 class="neon-text">LOCKER<span class="flicker">BOX</span> DEPOT</h1>
+        <p class="tagline">COAST TO COAST • STORAGE & PIT STOP</p>
+      </div>
+      <div class="dashboard-meter">
+        <span class="status-lamp active"></span>
+        <span class="live-counter">MILE 244 • 3 LOCKERE DISPONIBILE (2 LIBERE)</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Sistem Multi-Pagină / Switcher Tab-uri stil indicatoare de autostradă -->
+  <nav class="interstate-nav">
+    <a href="#pagina-drum" class="road-sign-tab active" onclick="switchPage('pagina-drum', event)">
+      <span class="exit-no">EXIT 1</span>
+      <span class="tab-label">🛣️ Lockere pe Traseu</span>
+    </a>
+    <a href="#pagina-adauga" class="road-sign-tab" onclick="switchPage('pagina-adauga', event)">
+      <span class="exit-no">EXIT 2</span>
+      <span class="tab-label">⛽ Adaugă Locker (Pit Stop)</span>
+    </a>
+    <a href="#pagina-statistici" class="road-sign-tab" onclick="switchPage('pagina-statistici', event)">
+      <span class="exit-no">EXIT 3</span>
+      <span class="tab-label">📊 Dashboard & Vitezometru</span>
+    </a>
+    <a href="#pagina-info" class="road-sign-tab" onclick="switchPage('pagina-info', event)">
+      <span class="exit-no">EXIT 4</span>
+      <span class="tab-label">🏨 Motel & Reguli Rutiere</span>
+    </a>
+  </nav>
+
+  <!-- Container principal cu pagini -->
+  <main class="road-container">
+
+    <!-- PAGINA 1: Lockere pe traseu (Listare) -->
+    <section id="pagina-drum" class="road-page active-page">
+      <div class="american-panel">
+        <div class="panel-header diner-badge">
+          <h2>LISTĂ LOCKERE PE AUTOSTRADĂ</h2>
+          <span class="stamp-pill">LIVE ON ASPHALT</span>
+        </div>
+
+        <ul class="locker-highway-list">
+          <!-- Card 1 -->
+          <li class="highway-card status-free">
+            <div class="locker-route-marker">
+              <span class="milepost">MP 101</span>
+            </div>
+            <div class="card-details">
+              <h3>LOCKER A-101 (TEXAS BIG TRUCK)</h3>
+              <div class="specs">
+                <span class="us-badge badge-mare">CARGO MARE / SEMI-TRAILER</span>
+                <span class="tag-loc">Parcare: Stația Shell #4</span>
+              </div>
+            </div>
+            <div class="card-action">
+              <span class="status-indicator open">LIBER</span>
+              <button class="diner-btn-sm" type="button">Închiriază 🏁</button>
+            </div>
+          </li>
+
+          <!-- Card 2 (Ocupat/Done) -->
+          <li class="highway-card status-rented done">
+            <div class="locker-route-marker">
+              <span class="milepost">MP 204</span>
+            </div>
+            <div class="card-details">
+              <h3>LOCKER B-204 (ARIZONA CRUISER)</h3>
+              <div class="specs">
+                <span class="us-badge badge-mediu">PICKUP MEDIU / V8 CABIN</span>
+                <span class="tag-loc">Parcare: Grand Canyon Motel</span>
+              </div>
+            </div>
+            <div class="card-action">
+              <span class="status-indicator busy">ÎNCHIRIAT</span>
+              <button class="diner-btn-sm disabled" disabled type="button">Ocupat 🔒</button>
+            </div>
+          </li>
+
+          <!-- Card 3 -->
+          <li class="highway-card status-free">
+            <div class="locker-route-marker">
+              <span class="milepost">MP 007</span>
+            </div>
+            <div class="card-details">
+              <h3>LOCKER C-007 (CALIFORNIA CHOPPER)</h3>
+              <div class="specs">
+                <span class="us-badge badge-mic">COMPACT / HARLEY BAG</span>
+                <span class="tag-loc">Parcare: Santa Monica Pier</span>
+              </div>
+            </div>
+            <div class="card-action">
+              <span class="status-indicator open">LIBER</span>
+              <button class="diner-btn-sm" type="button">Închiriază 🏁</button>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- PAGINA 2: Adăugare Locker nou (Gas Station Workshop) -->
+    <section id="pagina-adauga" class="road-page">
+      <div class="american-panel diner-style">
+        <div class="panel-header gas-badge">
+          <h2>PIT STOP SERVICE • ADAUGĂ UN NOU LOCKER</h2>
+          <span class="stamp-pill">FORMULAR RUTIER</span>
+        </div>
+
+        <form class="highway-form" onsubmit="event.preventDefault(); alert('Locker înregistrat pe traseu!');">
+          <div class="form-row">
+            <label>
+              NUME LOCKER / VEHICUL
+              <input type="text" name="nume" placeholder="Ex: Locker D-302 Muscle Car" required />
+            </label>
+            <label>
+              DIMENSIUNE SPAȚIU
+              <select name="dimensiune">
+                <option value="mic">Mic (Trunk / Chopper)</option>
+                <option value="mediu" selected>Mediu (SUV / Pick-Up Truck)</option>
+                <option value="mare">Mare (Long Haul Trailer 18-Wheeler)</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label>
+              LOCAȚIE PE AUTOSTRADĂ
+              <input type="text" placeholder="Ex: Mile 312, Nevada Rest Stop" />
+            </label>
+            <label>
+              COD SECURITATE LA DRUM
+              <input type="password" placeholder="••••••••" />
+            </label>
+          </div>
+
+          <button type="submit" class="highway-submit-btn">
+            ⛽ INSTALEAZĂ LOCKER PE TRASEU
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- PAGINA 3: Dashboard & Stats (Bord de mașină americană) -->
+    <section id="pagina-statistici" class="road-page">
+      <div class="american-panel">
+        <div class="panel-header dashboard-header">
+          <h2>SPEEDOMETER & ROUTE METRICS</h2>
+          <span class="stamp-pill">DIAGNOSTIC BORD</span>
+        </div>
+
+        <div class="speedometer-grid">
+          <div class="gauge-card">
+            <div class="gauge-dial">
+              <span class="needle needle-fast"></span>
+              <div class="gauge-val">85</div>
+              <span class="gauge-unit">MPH</span>
+            </div>
+            <h4>Viteză de tranzit</h4>
+          </div>
+
+          <div class="gauge-card">
+            <div class="odometer">0 0 2 4 4</div>
+            <h4>Total Mile Gestionate</h4>
+          </div>
+
+          <div class="gauge-card">
+            <div class="fuel-display">
+              <span class="fuel-level">67%</span>
+              <span class="fuel-status">Capacitate liberă</span>
+            </div>
+            <h4>Grad Ocupare Lockere</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGINA 4: Reguli & Motel info -->
+    <section id="pagina-info" class="road-page">
+      <div class="american-panel retro-motel">
+        <div class="panel-header motel-badge">
+          <h2>MOTEL & TRUCK STOP GUIDELINES</h2>
+          <span class="stamp-pill">HIGHWAY LAWS</span>
+        </div>
+
+        <div class="motel-content">
+          <div class="rule-box">
+            <h3>🪪 Regula 1: Check-in la barieră</h3>
+            <p>Toate cheile și parolele de deblocare trebuie validate la stația de taxare a autostrăzii.</p>
+          </div>
+          <div class="rule-box">
+            <h3>🕒 Regula 2: Parcare maximă</h3>
+            <p>Lockerele mari de marfă sunt asigurate 24/7 cu camere video pe întreaga lungime a autostrăzii.</p>
+          </div>
+          <div class="rule-box">
+            <h3>☕ Regula 3: Free Coffee la Pit Stop</h3>
+            <p>Fiecare locker rezervat îți oferă un voucher de cafea fierbinte la Diner-ul de la Km 120.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="highway-footer">
+    <div class="footer-sign">
+      <span>HIGHWAY STORAGE SYSTEM • AMERICAN ROADWAY</span>
+      <p>Proiect Tehnologii Web • Designed with High-Octane American Spirit 🏎️💨</p>
+    </div>
+  </footer>
+
+  <!-- Script simplu pentru schimbarea paginilor/tab-urilor -->
+  <script>
+    function switchPage(pageId, event) {
+      if (event) event.preventDefault();
+      
+      // Ascunde toate paginile
+      document.querySelectorAll('.road-page').forEach(page => {
+        page.classList.remove('active-page');
+      });
+
+      // Dezactivează toate tab-urile
+      document.querySelectorAll('.road-sign-tab').forEach(tab => {
+        tab.classList.remove('active');
+      });
+
+      // Activează pagina selectată
+      const target = document.getElementById(pageId);
+      if (target) {
+        target.classList.add('active-page');
+      }
+
+      // Activează tab-ul curent
+      if (event && event.currentTarget) {
+        event.currentTarget.classList.add('active');
+      }
+    }
+  </script>
+</body>
+</html>
