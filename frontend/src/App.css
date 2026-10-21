@@ -1,0 +1,726 @@
+/* ========================================================
+   AMERICAN HIGHWAY & RETRO DINER THEME
+   ======================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --asphalt-dark: #121316;
+  --asphalt-mid: #1d1e24;
+  --road-yellow: #f5b016;
+  --road-white: #e5e7eb;
+  --neon-cyan: #00e5ff;
+  --neon-red: #ff2a5f;
+  --neon-orange: #ff6d00;
+  --highway-green: #0b5c36;
+  --interstate-blue: #003882;
+  --desert-sand: #d8c3a5;
+  --chrome: #f8fafc;
+  --text-dark: #111827;
+  --text-light: #f3f4f6;
+  --badge-mic: #00b4d8;
+  --badge-mediu: #f59e0b;
+  --badge-mare: #ef4444;
+}
+
+body.highway-body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Oswald', sans-serif;
+  background: var(--asphalt-dark);
+  color: var(--text-light);
+  overflow-x: hidden;
+  position: relative;
+  min-height: 100vh;
+}
+
+/* ========================================================
+   FUNDAL: SKYLINE & ANIMATED ROAD WITH CAR
+   ======================================================== */
+.skyline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 240px;
+  background: linear-gradient(180deg, #090814 0%, #20132a 60%, #461f38 100%);
+  z-index: -3;
+}
+
+.mountain-range {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  background: radial-gradient(ellipse at 50% 120%, #15091d 60%, transparent 80%);
+  opacity: 0.8;
+}
+
+/* Drumul cu perspectivă */
+.road-perspective {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  perspective: 450px;
+  overflow: hidden;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.asphalt {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #141518;
+  transform: rotateX(60deg);
+  transform-origin: bottom center;
+  box-shadow: inset 0 20px 80px rgba(0,0,0,0.9);
+}
+
+/* Liniile galbene intermitente de pe mijlocul autostrăzii */
+.road-stripes {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 12px;
+  height: 200%;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--road-yellow) 0px,
+    var(--road-yellow) 70px,
+    transparent 70px,
+    transparent 140px
+  );
+  animation: driveRoad 1.2s linear infinite;
+  box-shadow: 0 0 15px rgba(245, 176, 22, 0.6);
+}
+
+.road-lane-left {
+  position: absolute;
+  left: 15%;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.road-lane-right {
+  position: absolute;
+  right: 15%;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes driveRoad {
+  0% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-50%) translateY(140px); }
+}
+
+/* Mașina americană retro pe șosea */
+.cruising-car {
+  position: absolute;
+  bottom: 25px;
+  left: 53%;
+  width: 80px;
+  height: 48px;
+  animation: carVibrate 0.2s infinite alternate;
+}
+
+.car-chassis {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, #7f1d1d, #ef4444);
+  border-radius: 10px 10px 4px 4px;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+}
+
+.car-windshield {
+  position: absolute;
+  top: 8px;
+  left: 15%;
+  width: 70%;
+  height: 16px;
+  background: #111;
+  border-radius: 4px;
+}
+
+.car-light {
+  position: absolute;
+  bottom: 4px;
+  width: 12px;
+  height: 8px;
+  background: #ff1100;
+  box-shadow: 0 0 16px 6px rgba(255, 0, 0, 0.8);
+  border-radius: 2px;
+}
+.car-light-left { left: 6px; }
+.car-light-right { right: 6px; }
+
+@keyframes carVibrate {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-2px); }
+}
+
+/* ========================================================
+   HEADER: RETRO BILLBOARD
+   ======================================================== */
+.highway-header {
+  padding: 30px 16px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  flex-wrap: wrap;
+}
+
+.billboard-title {
+  text-align: center;
+}
+
+.neon-border {
+  border: 3px solid var(--neon-cyan);
+  padding: 12px 28px;
+  border-radius: 14px;
+  background: rgba(10, 11, 15, 0.88);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 20px rgba(0, 229, 255, 0.4), inset 0 0 15px rgba(0, 229, 255, 0.2);
+}
+
+.neon-text {
+  margin: 0;
+  font-family: 'Bungee', cursive;
+  font-size: 2.2rem;
+  letter-spacing: 3px;
+  color: #fff;
+  text-shadow: 0 0 10px var(--neon-cyan), 0 0 25px var(--neon-cyan);
+}
+
+.flicker {
+  color: var(--neon-orange);
+  text-shadow: 0 0 10px var(--neon-orange);
+  animation: neonFlicker 1.8s infinite alternate;
+}
+
+@keyframes neonFlicker {
+  0%, 100% { opacity: 1; }
+  45% { opacity: 0.6; }
+  60% { opacity: 1; }
+  80% { opacity: 0.2; }
+}
+
+.tagline {
+  margin: 4px 0 0;
+  font-size: 0.95rem;
+  color: var(--road-yellow);
+  letter-spacing: 3px;
+  font-weight: 600;
+}
+
+.dashboard-meter {
+  margin-top: 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.9rem;
+  color: #38bdf8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.status-lamp {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 8px #22c55e;
+}
+
+/* ========================================================
+   NAVIGARE / TABS INTERSTATE HIGHWAY
+   ======================================================== */
+.interstate-nav {
+  max-width: 960px;
+  margin: 10px auto 26px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 16px;
+  flex-wrap: wrap;
+}
+
+.road-sign-tab {
+  background: var(--highway-green);
+  color: #fff;
+  text-decoration: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.15s ease, background 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.road-sign-tab:hover {
+  transform: translateY(-3px);
+  background: #0f7a47;
+  box-shadow: 0 10px 20px rgba(0, 255, 128, 0.3);
+}
+
+.road-sign-tab.active {
+  background: var(--interstate-blue);
+  border-color: var(--road-yellow);
+  box-shadow: 0 0 16px rgba(245, 176, 22, 0.7);
+}
+
+.exit-no {
+  font-size: 0.75rem;
+  background: #fff;
+  color: #000;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.tab-label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ========================================================
+   CONTAINER & MULTI-PAGE
+   ======================================================== */
+.road-container {
+  max-width: 960px;
+  margin: 0 auto 50px;
+  padding: 0 16px;
+}
+
+.road-page {
+  display: none;
+  animation: fadeIn 0.35s ease forwards;
+}
+
+.road-page.active-page {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ========================================================
+   PANOURI & STIL RETRO DINER
+   ======================================================== */
+.american-panel {
+  background: rgba(26, 27, 34, 0.92);
+  border: 2px solid #3f4252;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
+  padding-bottom: 14px;
+  margin-bottom: 20px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.4rem;
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.stamp-pill {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  background: rgba(245, 176, 22, 0.2);
+  color: var(--road-yellow);
+  border: 1px solid var(--road-yellow);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+/* ========================================================
+   LISTĂ LOCKERE PE DRUM (CARDS)
+   ======================================================== */
+.locker-highway-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.highway-card {
+  display: grid;
+  grid-template-columns: 80px 1fr auto;
+  align-items: center;
+  gap: 18px;
+  padding: 16px 20px;
+  border-radius: 12px;
+  background: #14151b;
+  border: 1px solid #2f3240;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.highway-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  border-radius: 12px 0 0 12px;
+  background: var(--road-yellow);
+}
+
+.highway-card.status-rented::before {
+  background: #64748b;
+}
+
+.highway-card:hover {
+  transform: scale(1.01);
+  border-color: var(--road-yellow);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+}
+
+.milepost {
+  display: block;
+  background: #000;
+  color: var(--neon-cyan);
+  border: 2px solid var(--neon-cyan);
+  border-radius: 8px;
+  padding: 6px 4px;
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: 700;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.card-details h3 {
+  margin: 0 0 6px;
+  font-size: 1.15rem;
+  color: #fff;
+}
+
+.specs {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.us-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  color: #fff;
+  letter-spacing: 0.5px;
+}
+.badge-mic { background: var(--badge-mic); }
+.badge-mediu { background: var(--badge-mediu); color: #000; }
+.badge-mare { background: var(--badge-mare); }
+
+.tag-loc {
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.card-action {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.status-indicator {
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 999px;
+  text-transform: uppercase;
+}
+
+.status-indicator.open {
+  background: rgba(34, 197, 94, 0.2);
+  color: #4ade80;
+  border: 1px solid #4ade80;
+}
+
+.status-indicator.busy {
+  background: rgba(239, 68, 68, 0.2);
+  color: #f87171;
+  border: 1px solid #f87171;
+}
+
+.diner-btn-sm {
+  background: var(--road-yellow);
+  color: #111;
+  border: none;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.diner-btn-sm:hover {
+  background: #ffc83b;
+  transform: translateY(-1px);
+}
+
+.diner-btn-sm.disabled {
+  background: #334155;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+.highway-card.done h3 {
+  text-decoration: line-through;
+  color: #64748b;
+}
+
+/* ========================================================
+   PAGINA 2: FORMULAR PIT STOP
+   ======================================================== */
+.highway-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.highway-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+  color: #cbd5e1;
+  font-weight: 600;
+}
+
+.highway-form input,
+.highway-form select {
+  padding: 12px 14px;
+  background: #0e0f14;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  color: #fff;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+}
+
+.highway-form input:focus,
+.highway-form select:focus {
+  outline: none;
+  border-color: var(--road-yellow);
+  box-shadow: 0 0 10px rgba(245, 176, 22, 0.4);
+}
+
+.highway-submit-btn {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #111;
+  font-family: 'Oswald', sans-serif;
+  font-weight: 700;
+  font-size: 1.15rem;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  letter-spacing: 1px;
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+  transition: all 0.2s ease;
+}
+
+.highway-submit-btn:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  transform: translateY(-2px);
+}
+
+/* ========================================================
+   PAGINA 3: VITEZOMETRU & STATS BORD
+   ======================================================== */
+.speedometer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.gauge-card {
+  background: #111319;
+  border: 1px solid #2b2e3e;
+  border-radius: 12px;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+.gauge-dial {
+  width: 120px;
+  height: 120px;
+  border: 6px solid #22c55e;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.3), 0 0 15px rgba(34, 197, 94, 0.2);
+}
+
+.gauge-val {
+  font-family: 'Bungee', cursive;
+  font-size: 2.2rem;
+  color: #fff;
+}
+
+.gauge-unit {
+  font-size: 0.75rem;
+  color: #86efac;
+}
+
+.odometer {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 2rem;
+  background: #000;
+  color: #fff;
+  letter-spacing: 8px;
+  padding: 14px;
+  border: 2px solid #475569;
+  border-radius: 8px;
+  display: inline-block;
+  margin-top: 14px;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
+}
+
+.fuel-display {
+  padding: 20px 0;
+}
+
+.fuel-level {
+  font-family: 'Bungee', cursive;
+  font-size: 2.4rem;
+  color: var(--neon-cyan);
+  display: block;
+}
+
+.fuel-status {
+  color: #94a3b8;
+  font-size: 0.85rem;
+}
+
+.gauge-card h4 {
+  margin: 12px 0 0;
+  font-size: 1rem;
+  color: #cbd5e1;
+}
+
+/* ========================================================
+   PAGINA 4: MOTEL & REGULI
+   ======================================================== */
+.motel-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.rule-box {
+  background: #11131a;
+  border-left: 4px solid var(--neon-red);
+  padding: 16px;
+  border-radius: 0 8px 8px 0;
+}
+
+.rule-box h3 {
+  margin-top: 0;
+  color: var(--road-yellow);
+  font-size: 1.1rem;
+}
+
+.rule-box p {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* ========================================================
+   FOOTER
+   ======================================================== */
+.highway-footer {
+  text-align: center;
+  padding: 30px 16px 50px;
+  color: #64748b;
+  font-size: 0.9rem;
+}
+
+.footer-sign {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 20px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.footer-sign span {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--road-yellow);
+}
+
+/* ========================================================
+   RESPONSIVITATE / MOBILE
+   ======================================================== */
+@media (max-width: 768px) {
+  .highway-card {
+    grid-template-columns: 1fr;
+    text-align: left;
+  }
+  .card-action {
+    align-items: flex-start;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+  .interstate-nav {
+    flex-direction: column;
+  }
+  .road-sign-tab {
+    width: 100%;
+  }
+  .neon-text {
+    font-size: 1.5rem;
+  }
+}
