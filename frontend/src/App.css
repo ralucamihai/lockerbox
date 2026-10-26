@@ -1,5 +1,5 @@
 /* ========================================================
-   AMERICAN HIGHWAY & RETRO DINER THEME
+   AMERICAN HIGHWAY & RETRO DINER THEME - LOCKERBOX
    ======================================================== */
 
 * {
@@ -7,46 +7,76 @@
 }
 
 :root {
+  /* Variabile implicite - NIGHT MODE */
   --asphalt-dark: #121316;
-  --asphalt-mid: #1d1e24;
+  --road-asphalt: #141518;
   --road-yellow: #f5b016;
-  --road-white: #e5e7eb;
+  --road-white: rgba(255, 255, 255, 0.4);
   --neon-cyan: #00e5ff;
   --neon-red: #ff2a5f;
   --neon-orange: #ff6d00;
-  --highway-green: #0b5c36;
-  --interstate-blue: #003882;
-  --desert-sand: #d8c3a5;
-  --chrome: #f8fafc;
-  --text-dark: #111827;
   --text-light: #f3f4f6;
-  --badge-mic: #00b4d8;
-  --badge-mediu: #f59e0b;
-  --badge-mare: #ef4444;
-}
-
-body.highway-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Oswald', sans-serif;
-  background: var(--asphalt-dark);
-  color: var(--text-light);
-  overflow-x: hidden;
-  position: relative;
-  min-height: 100vh;
+  --text-muted: #94a3b8;
+  
+  --sky-gradient: linear-gradient(180deg, #090814 0%, #20132a 60%, #461f38 100%);
+  --mountain-color: radial-gradient(ellipse at 50% 120%, #15091d 60%, transparent 80%);
+  --panel-bg: rgba(26, 27, 34, 0.95);
+  --card-bg: #14151b;
+  --border-color: #352f4d;
+  
+  --car-body: linear-gradient(to top, #7f1d1d, #ef4444);
+  --car-light-glow: rgba(255, 0, 0, 0.8);
 }
 
 /* ========================================================
-   FUNDAL: SKYLINE & ANIMATED ROAD WITH CAR
+   DAYLIGHT HIGHWAY (MOD LUMINOS) - DRUM DE ZI
+   ======================================================== */
+:root[data-theme="light"] {
+  --asphalt-dark: #334155;
+  --road-asphalt: #2d3748;
+  --road-yellow: #facc15;
+  --road-white: rgba(255, 255, 255, 0.8);
+  --neon-cyan: #0284c7;
+  --neon-red: #dc2626;
+  --neon-orange: #ea580c;
+  --text-light: #0f172a;
+  --text-muted: #475569;
+  
+  /* Cer albastru senin de zi & munți în culorile Marelui Canion */
+  --sky-gradient: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 50%, #bae6fd 100%);
+  --mountain-color: radial-gradient(ellipse at 50% 120%, #c2410c 60%, transparent 80%);
+  --panel-bg: rgba(255, 255, 255, 0.94);
+  --card-bg: #f8fafc;
+  --border-color: #cbd5e1;
+  
+  --car-body: linear-gradient(to top, #1e3a8a, #2563eb);
+  --car-light-glow: rgba(37, 99, 235, 0.6);
+}
+
+body.highway-body, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--asphalt-dark);
+  color: var(--text-light);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* ========================================================
+   FUNDAL DINAMIC: SKYLINE & ANIMATED ROAD WITH CAR
    ======================================================== */
 .skyline {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 240px;
-  background: linear-gradient(180deg, #090814 0%, #20132a 60%, #461f38 100%);
+  background: var(--sky-gradient);
   z-index: -3;
+  transition: background 0.3s ease;
 }
 
 .mountain-range {
@@ -54,16 +84,18 @@ body.highway-body {
   bottom: 0;
   width: 100%;
   height: 90px;
-  background: radial-gradient(ellipse at 50% 120%, #15091d 60%, transparent 80%);
-  opacity: 0.8;
+  background: var(--mountain-color);
+  opacity: 0.85;
+  transition: background 0.3s ease;
 }
 
-/* Drumul cu perspectivă */
 .road-perspective {
   position: fixed;
+  top: 0;
   bottom: 0;
   left: 0;
-  width: 100%;
+  right: 0;
+  width: 100vw;
   height: 100vh;
   perspective: 450px;
   overflow: hidden;
@@ -75,13 +107,14 @@ body.highway-body {
   position: absolute;
   width: 100%;
   height: 100%;
-  background: #141518;
+  background: var(--road-asphalt);
   transform: rotateX(60deg);
   transform-origin: bottom center;
-  box-shadow: inset 0 20px 80px rgba(0,0,0,0.9);
+  box-shadow: inset 0 20px 80px rgba(0,0,0,0.8);
+  transition: background 0.3s ease;
 }
 
-/* Liniile galbene intermitente de pe mijlocul autostrăzii */
+/* Liniile galbene animate pe mijlocul autostrăzii */
 .road-stripes {
   position: absolute;
   left: 50%;
@@ -97,7 +130,7 @@ body.highway-body {
     transparent 140px
   );
   animation: driveRoad 1.2s linear infinite;
-  box-shadow: 0 0 15px rgba(245, 176, 22, 0.6);
+  box-shadow: 0 0 12px rgba(250, 204, 21, 0.6);
 }
 
 .road-lane-left {
@@ -106,7 +139,7 @@ body.highway-body {
   top: 0;
   width: 6px;
   height: 100%;
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--road-white);
 }
 
 .road-lane-right {
@@ -115,7 +148,7 @@ body.highway-body {
   top: 0;
   width: 6px;
   height: 100%;
-  background: rgba(255, 255, 255, 0.4);
+  background: var(--road-white);
 }
 
 @keyframes driveRoad {
@@ -127,42 +160,43 @@ body.highway-body {
 .cruising-car {
   position: absolute;
   bottom: 25px;
-  left: 53%;
-  width: 80px;
-  height: 48px;
+  left: 52%;
+  width: 70px;
+  height: 40px;
   animation: carVibrate 0.2s infinite alternate;
 }
 
 .car-chassis {
   width: 100%;
   height: 100%;
-  background: linear-gradient(to top, #7f1d1d, #ef4444);
-  border-radius: 10px 10px 4px 4px;
+  background: var(--car-body);
+  border-radius: 8px 8px 3px 3px;
   position: relative;
   box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+  transition: background 0.3s ease;
 }
 
 .car-windshield {
   position: absolute;
-  top: 8px;
+  top: 6px;
   left: 15%;
   width: 70%;
-  height: 16px;
+  height: 14px;
   background: #111;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 .car-light {
   position: absolute;
   bottom: 4px;
-  width: 12px;
-  height: 8px;
+  width: 10px;
+  height: 6px;
   background: #ff1100;
-  box-shadow: 0 0 16px 6px rgba(255, 0, 0, 0.8);
+  box-shadow: 0 0 12px 5px var(--car-light-glow);
   border-radius: 2px;
 }
-.car-light-left { left: 6px; }
-.car-light-right { right: 6px; }
+.car-light-left { left: 5px; }
+.car-light-right { right: 5px; }
 
 @keyframes carVibrate {
   0% { transform: translateY(0); }
@@ -170,15 +204,44 @@ body.highway-body {
 }
 
 /* ========================================================
-   HEADER: RETRO BILLBOARD
+   HEADER & THEME TOGGLE
    ======================================================== */
-.highway-header {
+.app-header, .highway-header {
+  position: relative;
   padding: 30px 16px 20px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  gap: 25px;
-  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.theme-toggle {
+  position: absolute;
+  top: 16px;
+  right: 20px;
+  padding: 8px 16px;
+  border: 2px solid var(--road-yellow);
+  border-radius: 8px;
+  background: rgba(10, 11, 15, 0.85);
+  color: var(--road-yellow);
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+:root[data-theme="light"] .theme-toggle {
+  background: #ffffff;
+  color: #0f172a;
+  border-color: #0284c7;
+}
+
+.theme-toggle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.3);
 }
 
 .billboard-title {
@@ -194,6 +257,11 @@ body.highway-body {
   box-shadow: 0 0 20px rgba(0, 229, 255, 0.4), inset 0 0 15px rgba(0, 229, 255, 0.2);
 }
 
+:root[data-theme="light"] .neon-border {
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
 .neon-text {
   margin: 0;
   font-family: 'Bungee', cursive;
@@ -203,10 +271,19 @@ body.highway-body {
   text-shadow: 0 0 10px var(--neon-cyan), 0 0 25px var(--neon-cyan);
 }
 
+:root[data-theme="light"] .neon-text {
+  color: #0284c7;
+  text-shadow: none;
+}
+
 .flicker {
   color: var(--neon-orange);
   text-shadow: 0 0 10px var(--neon-orange);
   animation: neonFlicker 1.8s infinite alternate;
+}
+
+:root[data-theme="light"] .flicker {
+  text-shadow: none;
 }
 
 @keyframes neonFlicker {
@@ -224,11 +301,15 @@ body.highway-body {
   font-weight: 600;
 }
 
+:root[data-theme="light"] .tagline {
+  color: #d97706;
+}
+
 .dashboard-meter {
   margin-top: 10px;
   font-family: 'Share Tech Mono', monospace;
-  font-size: 0.9rem;
-  color: #38bdf8;
+  font-size: 0.95rem;
+  color: var(--neon-cyan);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -244,104 +325,31 @@ body.highway-body {
 }
 
 /* ========================================================
-   NAVIGARE / TABS INTERSTATE HIGHWAY
-   ======================================================== */
-.interstate-nav {
-  max-width: 960px;
-  margin: 10px auto 26px;
-  display: flex;
-  justify-content: center;
-  gap: 12px;
-  padding: 0 16px;
-  flex-wrap: wrap;
-}
-
-.road-sign-tab {
-  background: var(--highway-green);
-  color: #fff;
-  text-decoration: none;
-  padding: 10px 16px;
-  border-radius: 8px;
-  border: 2px solid #fff;
-  box-shadow: 0 6px 14px rgba(0,0,0,0.6);
-  font-family: 'Oswald', sans-serif;
-  text-transform: uppercase;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: transform 0.15s ease, background 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-  min-width: 180px;
-}
-
-.road-sign-tab:hover {
-  transform: translateY(-3px);
-  background: #0f7a47;
-  box-shadow: 0 10px 20px rgba(0, 255, 128, 0.3);
-}
-
-.road-sign-tab.active {
-  background: var(--interstate-blue);
-  border-color: var(--road-yellow);
-  box-shadow: 0 0 16px rgba(245, 176, 22, 0.7);
-}
-
-.exit-no {
-  font-size: 0.75rem;
-  background: #fff;
-  color: #000;
-  padding: 2px 8px;
-  border-radius: 3px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.tab-label {
-  font-size: 0.95rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-}
-
-/* ========================================================
-   CONTAINER & MULTI-PAGE
+   CONTAINER PRINCIPAL & PANOU
    ======================================================== */
 .road-container {
-  max-width: 960px;
+  max-width: 900px;
   margin: 0 auto 50px;
   padding: 0 16px;
+  position: relative;
+  z-index: 1;
 }
 
-.road-page {
-  display: none;
-  animation: fadeIn 0.35s ease forwards;
-}
-
-.road-page.active-page {
-  display: block;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ========================================================
-   PANOURI & STIL RETRO DINER
-   ======================================================== */
 .american-panel {
-  background: rgba(26, 27, 34, 0.92);
-  border: 2px solid #3f4252;
+  background: var(--panel-bg);
+  border: 2px solid var(--border-color);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(10px);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
+  border-bottom: 2px dashed var(--border-color);
   padding-bottom: 14px;
   margin-bottom: 20px;
 }
@@ -350,7 +358,6 @@ body.highway-body {
   margin: 0;
   font-size: 1.4rem;
   letter-spacing: 1px;
-  color: #fff;
 }
 
 .stamp-pill {
@@ -363,8 +370,13 @@ body.highway-body {
   border-radius: 4px;
 }
 
+:root[data-theme="light"] .stamp-pill {
+  color: #b45309;
+  border-color: #b45309;
+}
+
 /* ========================================================
-   LISTĂ LOCKERE PE DRUM (CARDS)
+   CARDURI SI LISTA DE LOCKERE
    ======================================================== */
 .locker-highway-list {
   list-style: none;
@@ -376,14 +388,14 @@ body.highway-body {
 }
 
 .highway-card {
-  display: grid;
-  grid-template-columns: 80px 1fr auto;
+  display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: space-between;
+  gap: 16px;
   padding: 16px 20px;
   border-radius: 12px;
-  background: #14151b;
-  border: 1px solid #2f3240;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
   position: relative;
   transition: all 0.2s ease;
 }
@@ -404,28 +416,59 @@ body.highway-body {
 }
 
 .highway-card:hover {
-  transform: scale(1.01);
+  transform: translateY(-2px);
   border-color: var(--road-yellow);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.locker-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.locker-checkbox {
+  width: 22px;
+  height: 22px;
+  min-width: 22px;
+  accent-color: var(--road-yellow);
+  cursor: pointer;
 }
 
 .milepost {
-  display: block;
+  display: inline-block;
   background: #000;
   color: var(--neon-cyan);
   border: 2px solid var(--neon-cyan);
   border-radius: 8px;
-  padding: 6px 4px;
+  padding: 6px 10px;
   font-family: 'Share Tech Mono', monospace;
   font-weight: 700;
   text-align: center;
   font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+:root[data-theme="light"] .milepost {
+  background: #0f172a;
+  color: #38bdf8;
+  border-color: #0284c7;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .card-details h3 {
-  margin: 0 0 6px;
+  margin: 0;
   font-size: 1.15rem;
-  color: #fff;
+  letter-spacing: 0.5px;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .specs {
@@ -443,239 +486,68 @@ body.highway-body {
   text-transform: uppercase;
   color: #fff;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
-.badge-mic { background: var(--badge-mic); }
-.badge-mediu { background: var(--badge-mediu); color: #000; }
-.badge-mare { background: var(--badge-mare); }
+.badge-small { background: #00b4d8; }
+.badge-medium { background: #f59e0b; color: #000; }
+.badge-large { background: #ef4444; }
 
 .tag-loc {
-  font-size: 0.8rem;
-  color: #94a3b8;
+  font-size: 0.85rem;
+  color: var(--text-muted);
 }
 
 .card-action {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 8px;
+  gap: 10px;
+  min-width: 110px;
 }
 
 .status-indicator {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 700;
-  padding: 2px 10px;
+  padding: 3px 10px;
   border-radius: 999px;
   text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .status-indicator.open {
   background: rgba(34, 197, 94, 0.2);
-  color: #4ade80;
-  border: 1px solid #4ade80;
+  color: #16a34a;
+  border: 1px solid #16a34a;
 }
 
 .status-indicator.busy {
   background: rgba(239, 68, 68, 0.2);
-  color: #f87171;
-  border: 1px solid #f87171;
+  color: #dc2626;
+  border: 1px solid #dc2626;
 }
 
-.diner-btn-sm {
-  background: var(--road-yellow);
-  color: #111;
-  border: none;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: 0.85rem;
+.btn-danger {
+  border: 1px solid var(--neon-red);
+  background: transparent;
+  color: var(--neon-red);
+  border-radius: 8px;
   padding: 6px 14px;
-  border-radius: 6px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
   cursor: pointer;
-  transition: 0.15s;
+  transition: all 0.2s ease;
+  font-weight: 600;
 }
 
-.diner-btn-sm:hover {
-  background: #ffc83b;
-  transform: translateY(-1px);
-}
-
-.diner-btn-sm.disabled {
-  background: #334155;
-  color: #64748b;
-  cursor: not-allowed;
+.btn-danger:hover {
+  background: var(--neon-red);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(255, 42, 95, 0.4);
 }
 
 .highway-card.done h3 {
   text-decoration: line-through;
-  color: #64748b;
-}
-
-/* ========================================================
-   PAGINA 2: FORMULAR PIT STOP
-   ======================================================== */
-.highway-form {
-  display: flex;
-  flex-direction: column;
-  gap: 18px;
-}
-
-.form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-
-.highway-form label {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
-  color: #cbd5e1;
-  font-weight: 600;
-}
-
-.highway-form input,
-.highway-form select {
-  padding: 12px 14px;
-  background: #0e0f14;
-  border: 1px solid #374151;
-  border-radius: 8px;
-  color: #fff;
-  font-family: 'Oswald', sans-serif;
-  font-size: 1rem;
-}
-
-.highway-form input:focus,
-.highway-form select:focus {
-  outline: none;
-  border-color: var(--road-yellow);
-  box-shadow: 0 0 10px rgba(245, 176, 22, 0.4);
-}
-
-.highway-submit-btn {
-  background: linear-gradient(135deg, #f59e0b, #d97706);
-  color: #111;
-  font-family: 'Oswald', sans-serif;
-  font-weight: 700;
-  font-size: 1.15rem;
-  padding: 15px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  letter-spacing: 1px;
-  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
-  transition: all 0.2s ease;
-}
-
-.highway-submit-btn:hover {
-  background: linear-gradient(135deg, #fbbf24, #f59e0b);
-  transform: translateY(-2px);
-}
-
-/* ========================================================
-   PAGINA 3: VITEZOMETRU & STATS BORD
-   ======================================================== */
-.speedometer-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-}
-
-.gauge-card {
-  background: #111319;
-  border: 1px solid #2b2e3e;
-  border-radius: 12px;
-  padding: 24px 16px;
-  text-align: center;
-}
-
-.gauge-dial {
-  width: 120px;
-  height: 120px;
-  border: 6px solid #22c55e;
-  border-radius: 50%;
-  margin: 0 auto 12px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  box-shadow: inset 0 0 20px rgba(34, 197, 94, 0.3), 0 0 15px rgba(34, 197, 94, 0.2);
-}
-
-.gauge-val {
-  font-family: 'Bungee', cursive;
-  font-size: 2.2rem;
-  color: #fff;
-}
-
-.gauge-unit {
-  font-size: 0.75rem;
-  color: #86efac;
-}
-
-.odometer {
-  font-family: 'Share Tech Mono', monospace;
-  font-size: 2rem;
-  background: #000;
-  color: #fff;
-  letter-spacing: 8px;
-  padding: 14px;
-  border: 2px solid #475569;
-  border-radius: 8px;
-  display: inline-block;
-  margin-top: 14px;
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.9);
-}
-
-.fuel-display {
-  padding: 20px 0;
-}
-
-.fuel-level {
-  font-family: 'Bungee', cursive;
-  font-size: 2.4rem;
-  color: var(--neon-cyan);
-  display: block;
-}
-
-.fuel-status {
-  color: #94a3b8;
-  font-size: 0.85rem;
-}
-
-.gauge-card h4 {
-  margin: 12px 0 0;
-  font-size: 1rem;
-  color: #cbd5e1;
-}
-
-/* ========================================================
-   PAGINA 4: MOTEL & REGULI
-   ======================================================== */
-.motel-content {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 16px;
-}
-
-.rule-box {
-  background: #11131a;
-  border-left: 4px solid var(--neon-red);
-  padding: 16px;
-  border-radius: 0 8px 8px 0;
-}
-
-.rule-box h3 {
-  margin-top: 0;
-  color: var(--road-yellow);
-  font-size: 1.1rem;
-}
-
-.rule-box p {
-  color: #cbd5e1;
-  font-size: 0.9rem;
-  line-height: 1.5;
+  opacity: 0.55;
 }
 
 /* ========================================================
@@ -684,12 +556,14 @@ body.highway-body {
 .highway-footer {
   text-align: center;
   padding: 30px 16px 50px;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.9rem;
+  position: relative;
+  z-index: 1;
 }
 
 .footer-sign {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--border-color);
   padding-top: 20px;
   max-width: 600px;
   margin: 0 auto;
@@ -700,27 +574,76 @@ body.highway-body {
   color: var(--road-yellow);
 }
 
-/* ========================================================
-   RESPONSIVITATE / MOBILE
-   ======================================================== */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
   .highway-card {
-    grid-template-columns: 1fr;
-    text-align: left;
-  }
-  .card-action {
+    flex-direction: column;
     align-items: flex-start;
   }
-  .form-row {
-    grid-template-columns: 1fr;
-  }
-  .interstate-nav {
-    flex-direction: column;
-  }
-  .road-sign-tab {
+  .card-action {
     width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border-color);
+    padding-top: 10px;
   }
-  .neon-text {
-    font-size: 1.5rem;
-  }
+}
+/* Stilizare info compartimente */
+.global-slots-bar {
+  margin-top: 10px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+  color: #e2e8f0;
+  flex-wrap: wrap;
+}
+
+.badge-slot {
+  background: rgba(0, 229, 255, 0.15);
+  border: 1px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.compartments-info {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.comp-title {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.comp-badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.comp-pill {
+  font-size: 0.75rem;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.comp-pill.available {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid #22c55e;
+}
+
+.comp-pill.full {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid #ef4444;
 }

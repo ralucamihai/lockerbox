@@ -1,6 +1,6 @@
 import LockerCard from "./LockerCard.jsx";
 
-export default function LockerList({ lockers }) {
+export default function LockerList({ lockers, onToggle, onDelete }) {
   if (!lockers || lockers.length === 0) {
     return (
       <p className="empty" style={{ textAlign: "center", padding: "20px", color: "#94a3b8" }}>
@@ -12,7 +12,12 @@ export default function LockerList({ lockers }) {
   return (
     <ul className="locker-highway-list">
       {lockers.map((locker) => (
-        <LockerCard key={locker.id} locker={locker} />
+        <LockerCard
+          key={locker.id}
+          locker={locker}
+          onToggle={onToggle}
+          onDelete={onDelete}
+        />
       ))}
     </ul>
   );
