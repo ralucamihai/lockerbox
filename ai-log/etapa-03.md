@@ -4,7 +4,7 @@
 - Gemini
 
 ## Conversations
-- Conversație privată Gemini (Stage 3 Vite + React setup, folder reorganization, CSS integration)
+- Conversație privată Gemini (Stage 3 Vite + React setup, folder reorganization, CSS integration) https://share.gemini.google/UiJHmXKNoo0T
 
 ## Key requests
 ### 1. Project Initialization & Clean Up

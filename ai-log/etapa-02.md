@@ -4,7 +4,7 @@
 - Gemini
 
 ## Conversations
-- Conversație privată Gemini (Stage 2 data logic implementation, immutability, array methods)
+- Conversație privată Gemini (Stage 2 data logic implementation, immutability, array methods) https://share.gemini.google/UiJHmXKNoo0T
 
 ## Key requests
 ### 1. Pure JavaScript data logic

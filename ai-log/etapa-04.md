@@ -4,7 +4,7 @@
 - Gemini
 
 ## Conversations
-- Conversație privată Gemini (Stage 4 React components, props passing, list rendering with map and key)
+- Conversație privată Gemini (Stage 4 React components, props passing, list rendering with map and key) https://share.gemini.google/UiJHmXKNoo0T
 
 ## Key requests
 ### 1. Component Architecture
