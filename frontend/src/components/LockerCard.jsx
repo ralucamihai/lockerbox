@@ -8,13 +8,18 @@ export default function LockerCard({ locker, onToggle, onDelete }) {
   const esteOcupat = locker.rented;
 
   return (
-    <li className={esteOcupat ? "highway-card status-rented done" : "highway-card status-free"}>
+    <li
+      className={esteOcupat ? "highway-card status-rented done" : "highway-card status-free"}
+      data-testid="item"
+      data-id={locker.id}
+    >
       <label className="locker-main">
         <input
           type="checkbox"
           checked={esteOcupat}
           onChange={() => onToggle(locker.id)}
           className="locker-checkbox"
+          data-testid="item-toggle"
           title="Bifează pentru a schimba starea (Liber / Ocupat)"
         />
 
@@ -23,7 +28,7 @@ export default function LockerCard({ locker, onToggle, onDelete }) {
         </div>
 
         <div className="card-details">
-          <h3>{locker.name}</h3>
+          <h3 data-testid="item-title">{locker.name}</h3>
           <div className="specs">
             <span className={`us-badge badge-${locker.size}`}>
               {ETICHETE_MARIMI[locker.size] || locker.size}
@@ -31,7 +36,6 @@ export default function LockerCard({ locker, onToggle, onDelete }) {
             <span className="tag-loc">📍 {locker.zone || "București Depot"}</span>
           </div>
 
-          {/* Afișarea disponibilității compartimentelor din hub */}
           {locker.slots && (
             <div className="compartments-info">
               <span className="comp-title">Disponibilitate compartimente hub:</span>
@@ -60,6 +64,7 @@ export default function LockerCard({ locker, onToggle, onDelete }) {
           onClick={() => onDelete(locker.id)}
           aria-label={`Șterge ${locker.name}`}
           type="button"
+          data-testid="item-delete"
         >
           Șterge 🗑️
         </button>

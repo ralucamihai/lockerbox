@@ -1,0 +1,9 @@
+{
+  "resource": "lockers",
+  "title": "name",
+  "done": "rented",
+  "sample": {
+    "size": "medium",
+    "zone": "București Depot"
+  }
+}

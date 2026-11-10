@@ -3,7 +3,7 @@ import LockerCard from "./LockerCard.jsx";
 export default function LockerList({ lockers, onToggle, onDelete }) {
   if (!lockers || lockers.length === 0) {
     return (
-      <p className="empty" style={{ textAlign: "center", padding: "20px", color: "#94a3b8" }}>
+      <p className="empty" data-testid="empty" style={{ textAlign: "center", padding: "20px", color: "#94a3b8" }}>
         Nu există niciun locker pe acest traseu.
       </p>
     );
