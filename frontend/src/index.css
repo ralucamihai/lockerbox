@@ -1,0 +1,286 @@
+/* ========================================================
+   STILURI GLOBALE - LOCKERBOX
+   Aici rămân doar variabilele de culoare, fundalul comun
+   (cer, drum, mașină), panourile și clasele comune.
+   Stilurile de componentă stau în fișierele *.module.css
+   ======================================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  
+  --asphalt-dark: #121316;
+  --road-asphalt: #141518;
+  --road-yellow: #f5b016;
+  --road-white: rgba(255, 255, 255, 0.4);
+  --neon-cyan: #00e5ff;
+  --neon-red: #ff2a5f;
+  --neon-orange: #ff6d00;
+  --text-light: #f3f4f6;
+  --text-muted: #94a3b8;
+  
+  --sky-gradient: linear-gradient(180deg, #090814 0%, #20132a 60%, #461f38 100%);
+  --mountain-color: radial-gradient(ellipse at 50% 120%, #15091d 60%, transparent 80%);
+  --panel-bg: rgba(20, 21, 27, 0.92);
+  --card-bg: #181920;
+  --border-color: #2e3240;
+  
+  --car-body: linear-gradient(to top, #7f1d1d, #ef4444);
+  --car-light-glow: rgba(255, 0, 0, 0.8);
+}
+
+:root[data-theme="light"] {
+  --asphalt-dark: #f1f5f9;
+  --road-asphalt: #cbd5e1;
+  --road-yellow: #d97706;
+  --road-white: rgba(0, 0, 0, 0.3);
+  --neon-cyan: #0284c7;
+  --neon-red: #dc2626;
+  --neon-orange: #ea580c;
+  --text-light: #0f172a;
+  --text-muted: #64748b;
+  
+  --sky-gradient: linear-gradient(180deg, #38bdf8 0%, #7dd3fc 50%, #bae6fd 100%);
+  --mountain-color: radial-gradient(ellipse at 50% 120%, #c2410c 60%, transparent 80%);
+  --panel-bg: rgba(255, 255, 255, 0.95);
+  --card-bg: #f8fafc;
+  --border-color: #cbd5e1;
+  
+  --car-body: linear-gradient(to top, #1e3a8a, #2563eb);
+  --car-light-glow: rgba(37, 99, 235, 0.6);
+}
+
+body.highway-body, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Oswald', sans-serif;
+  background-color: var(--asphalt-dark);
+  color: var(--text-light);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.skyline {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 240px;
+  background: var(--sky-gradient);
+  z-index: -3;
+  transition: background 0.3s ease;
+}
+
+.mountain-range {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 90px;
+  background: var(--mountain-color);
+  opacity: 0.85;
+  transition: background 0.3s ease;
+}
+
+.road-perspective {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  perspective: 450px;
+  overflow: hidden;
+  z-index: -2;
+  pointer-events: none;
+}
+
+.asphalt {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: var(--road-asphalt);
+  transform: rotateX(60deg);
+  transform-origin: bottom center;
+  box-shadow: inset 0 20px 80px rgba(0,0,0,0.8);
+  transition: background 0.3s ease;
+}
+
+.road-stripes {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 12px;
+  height: 200%;
+  transform: translateX(-50%);
+  background: repeating-linear-gradient(
+    to bottom,
+    var(--road-yellow) 0px,
+    var(--road-yellow) 70px,
+    transparent 70px,
+    transparent 140px
+  );
+  animation: driveRoad 1.2s linear infinite;
+  box-shadow: 0 0 12px rgba(250, 204, 21, 0.6);
+}
+
+.road-lane-left {
+  position: absolute;
+  left: 10%;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--road-white);
+}
+
+.road-lane-right {
+  position: absolute;
+  right: 10%;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--road-white);
+}
+
+@keyframes driveRoad {
+  0% { transform: translateX(-50%) translateY(0); }
+  100% { transform: translateX(-50%) translateY(140px); }
+}
+
+.cruising-car {
+  position: absolute;
+  bottom: 25px;
+  left: 52%;
+  width: 70px;
+  height: 40px;
+  animation: carVibrate 0.2s infinite alternate;
+}
+
+.car-chassis {
+  width: 100%;
+  height: 100%;
+  background: var(--car-body);
+  border-radius: 8px 8px 3px 3px;
+  position: relative;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+  transition: background 0.3s ease;
+}
+
+.car-windshield {
+  position: absolute;
+  top: 6px;
+  left: 15%;
+  width: 70%;
+  height: 14px;
+  background: #111;
+  border-radius: 3px;
+}
+
+.car-light {
+  position: absolute;
+  bottom: 4px;
+  width: 10px;
+  height: 6px;
+  background: #ff1100;
+  box-shadow: 0 0 12px 5px var(--car-light-glow);
+  border-radius: 2px;
+}
+
+.car-light-left { left: 5px; }
+
+.car-light-right { right: 5px; }
+
+@keyframes carVibrate {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-2px); }
+}
+
+.american-panel {
+  background: var(--panel-bg);
+  border: 2px solid var(--border-color);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px dashed var(--border-color);
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+.panel-header h2 {
+  margin: 0;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+.stamp-pill {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.75rem;
+  background: rgba(245, 176, 22, 0.2);
+  color: var(--road-yellow);
+  border: 1px solid var(--road-yellow);
+  padding: 4px 10px;
+  border-radius: 4px;
+}
+
+.us-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.badge-small { background: #00b4d8; }
+
+.badge-medium { background: #f59e0b; color: #000; }
+
+.badge-large { background: #ef4444; }
+
+.btn-danger {
+  border: 1px solid var(--neon-red);
+  background: transparent;
+  color: var(--neon-red);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+.btn-danger:hover {
+  background: var(--neon-red);
+  color: #fff;
+}
+
+.info { color: var(--neon-cyan); font-family: 'Share Tech Mono', monospace; text-align: center; padding: 20px; }
+
+.error { color: var(--neon-red); background: rgba(255, 42, 95, 0.15); border: 1px solid var(--neon-red); border-radius: 10px; padding: 14px; font-family: 'Share Tech Mono', monospace; margin: 15px 0; text-align: center; }
+
+.empty {
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+  padding: 20px;
+}
+
+
+:focus-visible {
+  outline: 2px solid var(--road-yellow);
+  outline-offset: 2px;
+}

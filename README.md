@@ -33,7 +33,7 @@ Sample data used across all stages:
 Open `index.html` in a browser. No build step, no server.
 Alternatively, run `npx live-server` in the terminal.
 
-For Stages 3, 4, 5, 6 & 7 (React + Vite + json-server):
+For Stages 3 to 8 (React + Vite + React Router + json-server):
 Navigate to the `frontend` directory and run in two terminal windows:
 
 ```bash
@@ -44,7 +44,7 @@ npm run api
 npm run dev
 ```
 
-Visit `http://localhost:5173` in your browser.
+Visit `http://localhost:5173` in your browser (install dependencies first with `npm install` inside `frontend/`).
 
 ## Stage 2: data logic
 
@@ -72,12 +72,16 @@ The list is served by `json-server@0.17.4` from `frontend/db.json` on endpoint `
 
 Lockers can be created directly from the page using a controlled, validated form. All operations (add, toggle status, delete) send HTTP requests to `json-server` mock API before updating the frontend state, making changes persistent across page reloads. Automated test markers (`tw.json` and `data-testid`) are configured.
 
+## Stage 8: routing and detail page
+
+The app is split into pages with React Router: the locker list (`/`), a detail page for each locker (`/lockers/:id`), a dashboard (`/dashboard`), a rules page (`/regulament`), an about page (`/despre`) and a 404 page for unknown addresses. A shared `Layout` (header, `NavLink` navigation, footer, day/night button) wraps every page through `<Outlet />`. The detail page reads the id with `useParams()` and requests exactly that locker from the API (`fetchLocker(id)`); a missing id shows an error message and a link back. Component styles moved to CSS Modules (`*.module.css` next to each component); `index.css` keeps only the color variables, the shared background and the common classes.
+
 ## AI usage
 
 | Tool | Used for | 
 | ----- | ----- | 
 | Claude | HTML/CSS structure and explanations, README and AI log (stage 1) | 
-| Gemini | Permalinks guidance (stage 1), data logic implementation, immutable array functions (stage 2), Vite setup, React components, props architecture, local state, event handling, mock REST API integration, controlled form validation & full CRUD setup (stages 3-7) | 
+| Gemini | Permalinks guidance (stage 1), data logic implementation, immutable array functions (stage 2), Vite setup, React components, props architecture, local state, event handling, mock REST API integration, controlled form validation & full CRUD setup (stages 3-7), React Router pages, detail page and CSS Modules (stage 8) | 
 
 Details per stage: see the `ai-log/` folder.
 
@@ -90,7 +94,8 @@ Details per stage: see the `ai-log/` folder.
 * [x] Stage 5: local state and events
 * [x] Stage 6: data from a mock API
 * [x] Stage 7: form and validation
-* [ ] Stage 8: routing and detail page
+* [x] Stage 8: routing and detail page
+* [ ] Stage 9: own backend with Express
 
 ## Checklist - Stage 1
 
@@ -178,3 +183,16 @@ Details per stage: see the `ai-log/` folder.
 | S7-R6 | tw.json and the data-testid attributes | [tw.json](https://github.com/ralucamihai/lockerbox/blob/58af7a5e36c3041b2a545e52749e7706b66f5fdf/tw.json), [LockerCard.jsx](https://github.com/ralucamihai/lockerbox/blob/58af7a5e36c3041b2a545e52749e7706b66f5fdf/frontend/src/components/LockerCard.jsx) | inspect console |
 | S7-R7 | README Stage 7 section + AI log | [README.md](https://github.com/ralucamihai/lockerbox/blob/58af7a5e36c3041b2a545e52749e7706b66f5fdf/README.md), [ai-log/etapa-07.md](https://github.com/ralucamihai/lockerbox/blob/58af7a5e36c3041b2a545e52749e7706b66f5fdf/ai-log/etapa-07.md) | read |
 | S7-R8 | commit "Stage 7" pushed | [Commit Link](https://github.com/ralucamihai/lockerbox/commit/58af7a5e36c3041b2a545e52749e7706b66f5fdf) | commit history |
+
+## Checklist - Stage 8
+
+| ID | Requirement | Where (permalink) | How to check |
+| --- | --- | --- | --- |
+| S8-R1 | header navigation changes page without reload | [App.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/App.jsx), [Layout.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/components/Layout.jsx) | click links, watch Network |
+| S8-R2 | click on an item opens its detail page | [LockerCard.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/components/LockerCard.jsx), [LockerDetaliuPage.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/pages/LockerDetaliuPage.jsx) | click a title |
+| S8-R3 | refresh on the detail URL works; missing id shows an error | [LockerDetaliuPage.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/pages/LockerDetaliuPage.jsx) | refresh /lockers/1, open /lockers/999 |
+| S8-R4 | unknown URL shows the app 404 page | [App.jsx (path="*")](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/App.jsx), [NotFoundPage.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/pages/NotFoundPage.jsx) | open /ceva |
+| S8-R5 | each component has its .module.css; index.css only shared styles | [src/components](https://github.com/ralucamihai/lockerbox/tree/main/frontend/src/components), [src/pages](https://github.com/ralucamihai/lockerbox/tree/main/frontend/src/pages), [index.css](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/index.css) | read |
+| S8-R6 | data-testid attributes from tables 7.3 and 8.2; detail route /<resource>/:id | [Layout.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/components/Layout.jsx), [LockerCard.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/components/LockerCard.jsx), [LockerDetaliuPage.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/pages/LockerDetaliuPage.jsx), [NotFoundPage.jsx](https://github.com/ralucamihai/lockerbox/blob/main/frontend/src/pages/NotFoundPage.jsx) | querySelector in the console |
+| S8-R7 | README Stage 8 section + AI log | [README.md](https://github.com/ralucamihai/lockerbox/blob/main/README.md), [ai-log/etapa-08.md](https://github.com/ralucamihai/lockerbox/blob/main/ai-log/etapa-08.md) | read |
+| S8-R8 | commit "Stage 8" pushed | [Commits](https://github.com/ralucamihai/lockerbox/commits/main) | commit history |

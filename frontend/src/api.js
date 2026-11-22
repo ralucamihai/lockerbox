@@ -42,3 +42,7 @@ export function deleteLocker(id) {
     method: "DELETE"
   });
 }
+
+export function fetchLocker(id) {
+  return request(`/lockers/${id}`);
+}

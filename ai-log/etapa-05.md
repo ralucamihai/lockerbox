@@ -8,7 +8,7 @@
 - Conversație privată Gemini (Stage 5 local state with useState, immutable handlers, controlled checkbox, Bucharest parcel domain adaptation & compartment availability badges, daylight/night theme toggle) https://share.gemini.google/UiJHmXKNoo0T
 
 ## Key requests
-### 1. State Management & Parcel Domaingit 
+### 1. State Management & Parcel Domain 
 - Asked: How to manage parcel locker data using `useState` in `App.jsx` and pass immutable handlers (`handleToggle` and `handleDelete`) to components.
 - Got: Updated state array to reflect Bucharest parcel locker locations (`Otopeni`, `Militari`, `Unirii`), added `slots` tracking for S, M, L compartments, and rendered availability badges per card.
 

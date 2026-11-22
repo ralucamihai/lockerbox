@@ -59,18 +59,6 @@
         "medium": 0,
         "large": 1
       }
-    },
-    {
-      "name": "dedwede",
-      "rented": false,
-      "size": "large",
-      "zone": "wsswd",
-      "slots": {
-        "small": 3,
-        "medium": 2,
-        "large": 1
-      },
-      "id": 6
     }
   ]
 }

@@ -1,3 +1,5 @@
+import styles from "./Dashboard.module.css";
+
 export default function Dashboard({ lockers }) {
   const total = lockers.length;
   const libere = lockers.filter((l) => !l.rented).length;
@@ -9,50 +11,50 @@ export default function Dashboard({ lockers }) {
   const totalL = lockers.reduce((acc, curr) => acc + (curr.slots?.large || 0), 0);
 
   return (
-    <div className="dashboard-view">
-      <div className="stats-grid">
-        <div className="stat-card">
-          <span className="stat-icon">📦</span>
-          <div className="stat-info">
+    <div className={styles.dashboardView}>
+      <div className={styles.statsGrid}>
+        <div className={styles.statCard}>
+          <span className={styles.statIcon}>📦</span>
+          <div className={styles.statInfo}>
             <h3>Grad Ocupare Rețea</h3>
-            <p className="stat-value">{rataOcupare}%</p>
+            <p className={styles.statValue}>{rataOcupare}%</p>
           </div>
-          <div className="progress-bar-bg">
-            <div className="progress-bar-fill" style={{ width: `${rataOcupare}%` }}></div>
+          <div className={styles.progressBarBg}>
+            <div className={styles.progressBarFill} style={{ width: `${rataOcupare}%` }}></div>
           </div>
         </div>
 
-        <div className="stat-card">
-          <span className="stat-icon">🔓</span>
-          <div className="stat-info">
+        <div className={styles.statCard}>
+          <span className={styles.statIcon}>🔓</span>
+          <div className={styles.statInfo}>
             <h3>Lockere Libere</h3>
-            <p className="stat-value">{libere} / {total}</p>
+            <p className={styles.statValue}>{libere} / {total}</p>
           </div>
         </div>
 
-        <div className="stat-card">
-          <span className="stat-icon">📍</span>
-          <div className="stat-info">
+        <div className={styles.statCard}>
+          <span className={styles.statIcon}>📍</span>
+          <div className={styles.statInfo}>
             <h3>Total Stații Active</h3>
-            <p className="stat-value">{total} Hub-uri</p>
+            <p className={styles.statValue}>{total} Hub-uri</p>
           </div>
         </div>
       </div>
 
-      <div className="slots-summary-panel">
+      <div className={styles.slotsSummaryPanel}>
         <h3>📊 Sumar Compartimente Disponibile în Oraș</h3>
-        <div className="slots-grid">
-          <div className="slot-box slot-s">
-            <span className="slot-label">Plicuri / Small (S)</span>
-            <span className="slot-count">{totalS} Libere</span>
+        <div className={styles.slotsGrid}>
+          <div className={`${styles.slotBox} ${styles.slotS}`}>
+            <span className={styles.slotLabel}>Plicuri / Small (S)</span>
+            <span className={styles.slotCount}>{totalS} Libere</span>
           </div>
-          <div className="slot-box slot-m">
-            <span className="slot-label">Cutii Medii / Medium (M)</span>
-            <span className="slot-count">{totalM} Libere</span>
+          <div className={`${styles.slotBox} ${styles.slotM}`}>
+            <span className={styles.slotLabel}>Cutii Medii / Medium (M)</span>
+            <span className={styles.slotCount}>{totalM} Libere</span>
           </div>
-          <div className="slot-box slot-l">
-            <span className="slot-label">Voluminoase / Large (L)</span>
-            <span className="slot-count">{totalL} Libere</span>
+          <div className={`${styles.slotBox} ${styles.slotL}`}>
+            <span className={styles.slotLabel}>Voluminoase / Large (L)</span>
+            <span className={styles.slotCount}>{totalL} Libere</span>
           </div>
         </div>
       </div>

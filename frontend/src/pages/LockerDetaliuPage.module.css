@@ -1,0 +1,44 @@
+.detail {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+  color: var(--road-yellow);
+}
+
+.rented {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+.fields {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 10px 20px;
+  margin: 0;
+}
+
+.fields dt {
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+.fields dd {
+  margin: 0;
+}
+
+@media (max-width: 500px) {
+  .fields {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+  .fields dd {
+    margin-bottom: 10px;
+  }
+}

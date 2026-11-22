@@ -1,0 +1,5 @@
+.rulesList { display: flex; flex-direction: column; gap: 16px; margin-top: 15px; }
+
+.ruleItem { display: flex; align-items: flex-start; gap: 16px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; }
+
+.ruleNum { font-family: 'Bungee', cursive; font-size: 1.5rem; color: var(--road-yellow); }

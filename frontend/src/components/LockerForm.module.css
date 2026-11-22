@@ -1,0 +1,69 @@
+.lockerForm {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.lockerForm label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.lockerForm input[type="text"],
+.lockerForm select {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  background: var(--card-bg);
+  color: var(--text-light);
+  font-family: 'Oswald', sans-serif;
+  font-size: 0.95rem;
+  outline: none;
+}
+
+.lockerForm input[type="text"]:focus,
+.lockerForm select:focus {
+  border-color: var(--neon-cyan);
+}
+
+.lockerForm input[aria-invalid="true"] {
+  border-color: var(--neon-red) !important;
+}
+
+.btnSubmit {
+  background: var(--road-yellow);
+  color: #000;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 6px;
+}
+
+.btnSubmit:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(245, 176, 22, 0.4);
+}
+
+.btnSubmit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.formErrorMsg {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: 8px;
+  color: var(--neon-red);
+  background: rgba(255, 42, 95, 0.15);
+  border: 1px solid var(--neon-red);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.85rem;
+}

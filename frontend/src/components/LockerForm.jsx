@@ -1,10 +1,6 @@
 import { useState } from "react";
-
-const MARIMI = [
-  { value: "small", label: "S • PLICURI & GADGETURI" },
-  { value: "medium", label: "M • CUTII MEDII / HAINE" },
-  { value: "large", label: "L • COLETE MARI / VOLUMINOASE" }
-];
+import { MARIMI_LOCKER } from "../constants.js";
+import styles from "./LockerForm.module.css";
 
 const NUME_MAX = 100;
 
@@ -55,7 +51,7 @@ export default function LockerForm({ onAdd }) {
   }
 
   return (
-    <form className="locker-form" onSubmit={handleSubmit} noValidate data-testid="form">
+    <form className={styles.lockerForm} onSubmit={handleSubmit} noValidate data-testid="form">
       <label>
         Denumire Locker / Stație
         <input
@@ -76,7 +72,7 @@ export default function LockerForm({ onAdd }) {
           onChange={(e) => setSize(e.target.value)}
           data-testid="form-size"
         >
-          {MARIMI.map((m) => (
+          {MARIMI_LOCKER.map((m) => (
             <option key={m.value} value={m.value}>
               {m.label}
             </option>
@@ -96,7 +92,7 @@ export default function LockerForm({ onAdd }) {
       </label>
 
       {eroare && (
-        <p className="form-error-msg" data-testid="form-error">
+        <p className={styles.formErrorMsg} data-testid="form-error">
           ⚠️ {eroare}
         </p>
       )}
@@ -104,7 +100,7 @@ export default function LockerForm({ onAdd }) {
       <button
         type="submit"
         disabled={trimite}
-        className="btn-submit"
+        className={styles.btnSubmit}
         data-testid="form-submit"
       >
         {trimite ? "Se salvează..." : "Adaugă Locker în Rețea ➕"}

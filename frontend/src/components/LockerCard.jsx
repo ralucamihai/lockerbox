@@ -1,62 +1,78 @@
-const ETICHETE_MARIMI = {
-  small: "S • PLICURI & GADGETURI",
-  medium: "M • CUTII MEDII / HAINE",
-  large: "L • COLETE MARI / VOLUMINOASE"
-};
+import { Link } from "react-router-dom";
+import { ETICHETE_MARIME } from "../constants.js";
+import styles from "./LockerCard.module.css";
 
 export default function LockerCard({ locker, onToggle, onDelete }) {
   const esteOcupat = locker.rented;
 
   return (
     <li
-      className={esteOcupat ? "highway-card status-rented done" : "highway-card status-free"}
+      className={esteOcupat ? `${styles.card} ${styles.rented}` : styles.card}
       data-testid="item"
       data-id={locker.id}
     >
-      <label className="locker-main">
+      <div className={styles.lockerMain}>
         <input
           type="checkbox"
           checked={esteOcupat}
           onChange={() => onToggle(locker.id)}
-          className="locker-checkbox"
-          data-testid="item-toggle"
+          className={styles.lockerCheckbox}
+          aria-label={`Marchează ${locker.name} ca ocupat`}
           title="Bifează pentru a schimba starea (Liber / Ocupat)"
+          data-testid="item-toggle"
         />
 
-        <div className="locker-route-marker">
-          <span className="milepost">BOX {String(locker.id).padStart(3, "0")}</span>
+        <div>
+          <span className={styles.milepost}>
+            BOX {String(locker.id).padStart(3, "0")}
+          </span>
         </div>
 
-        <div className="card-details">
-          <h3 data-testid="item-title">{locker.name}</h3>
-          <div className="specs">
+        <div className={styles.cardDetails}>
+          <h3 className={styles.title}>
+            <Link
+              to={`/lockers/${locker.id}`}
+              className={styles.titleLink}
+              data-testid="item-link"
+            >
+              {locker.name}
+            </Link>
+          </h3>
+          <div className={styles.specs}>
             <span className={`us-badge badge-${locker.size}`}>
-              {ETICHETE_MARIMI[locker.size] || locker.size}
+              {ETICHETE_MARIME[locker.size] || locker.size}
             </span>
-            <span className="tag-loc">📍 {locker.zone || "București Depot"}</span>
+            <span className={styles.tagLoc}>📍 {locker.zone || "București Depot"}</span>
           </div>
 
           {locker.slots && (
-            <div className="compartments-info">
-              <span className="comp-title">Disponibilitate compartimente hub:</span>
-              <div className="comp-badges">
-                <span className={`comp-pill ${locker.slots.small > 0 ? "available" : "full"}`}>
-                  S: {locker.slots.small} libere
-                </span>
-                <span className={`comp-pill ${locker.slots.medium > 0 ? "available" : "full"}`}>
-                  M: {locker.slots.medium} libere
-                </span>
-                <span className={`comp-pill ${locker.slots.large > 0 ? "available" : "full"}`}>
-                  L: {locker.slots.large} libere
-                </span>
+            <div className={styles.compartmentsInfo}>
+              <span className={styles.compTitle}>
+                Disponibilitate compartimente hub:
+              </span>
+              <div className={styles.compBadges}>
+                {["small", "medium", "large"].map((k) => (
+                  <span
+                    key={k}
+                    className={`${styles.compPill} ${
+                      locker.slots[k] > 0 ? styles.available : styles.full
+                    }`}
+                  >
+                    {k[0].toUpperCase()}: {locker.slots[k]} libere
+                  </span>
+                ))}
               </div>
             </div>
           )}
         </div>
-      </label>
+      </div>
 
-      <div className="card-action">
-        <span className={esteOcupat ? "status-indicator busy" : "status-indicator open"}>
+      <div className={styles.cardAction}>
+        <span
+          className={`${styles.statusIndicator} ${
+            esteOcupat ? styles.busy : styles.open
+          }`}
+        >
           {esteOcupat ? "OCUPAT 📦" : "LIBER 🔓"}
         </span>
         <button

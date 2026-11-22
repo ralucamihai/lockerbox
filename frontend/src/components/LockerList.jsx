@@ -1,16 +1,17 @@
 import LockerCard from "./LockerCard.jsx";
+import styles from "./LockerList.module.css";
 
 export default function LockerList({ lockers, onToggle, onDelete }) {
   if (!lockers || lockers.length === 0) {
     return (
-      <p className="empty" data-testid="empty" style={{ textAlign: "center", padding: "20px", color: "#94a3b8" }}>
+      <p className={styles.empty} data-testid="empty">
         Nu există niciun locker pe acest traseu.
       </p>
     );
   }
 
   return (
-    <ul className="locker-highway-list">
+    <ul className={styles.list}>
       {lockers.map((locker) => (
         <LockerCard
           key={locker.id}
