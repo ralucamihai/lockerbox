@@ -23,14 +23,51 @@
   --badge-mic: #00b4d8;
   --badge-mediu: #f59e0b;
   --badge-mare: #ef4444;
+
+  /* Tema luminoasă (implicit) */
+  --bg: #e8edf3;
+  --panel-bg: rgba(255, 255, 255, 0.95);
+  --card-bg: #ffffff;
+  --card-border: #d5dbe5;
+  --input-bg: #f1f5f9;
+  --input-border: #b6c0cf;
+  --border: #b6c0cf;
+  --divider: rgba(15, 23, 42, 0.15);
+  --text-strong: #0f172a;
+  --text-body: #334155;
+  --text-muted: #64748b;
+}
+
+/* Tema întunecată: se redefinesc doar valorile variabilelor,
+   când sistemul utilizatorului folosește modul întunecat */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121316;
+    --panel-bg: rgba(26, 27, 34, 0.92);
+    --card-bg: #14151b;
+    --card-border: #2f3240;
+    --input-bg: #0e0f14;
+    --input-border: #374151;
+    --border: #3f4252;
+    --divider: rgba(255, 255, 255, 0.15);
+    --text-strong: #ffffff;
+    --text-body: #f3f4f6;
+    --text-muted: #94a3b8;
+  }
+}
+
+/* Contur vizibil la navigarea cu tasta Tab */
+:focus-visible {
+  outline: 2px solid var(--road-yellow);
+  outline-offset: 2px;
 }
 
 body.highway-body {
   margin: 0;
   padding: 0;
   font-family: 'Oswald', sans-serif;
-  background: var(--asphalt-dark);
-  color: var(--text-light);
+  background: var(--bg);
+  color: var(--text-body);
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
@@ -329,8 +366,8 @@ body.highway-body {
    PANOURI & STIL RETRO DINER
    ======================================================== */
 .american-panel {
-  background: rgba(26, 27, 34, 0.92);
-  border: 2px solid #3f4252;
+  background: var(--panel-bg);
+  border: 2px solid var(--border);
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
@@ -341,7 +378,7 @@ body.highway-body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 2px dashed rgba(255, 255, 255, 0.15);
+  border-bottom: 2px dashed var(--divider);
   padding-bottom: 14px;
   margin-bottom: 20px;
 }
@@ -350,7 +387,7 @@ body.highway-body {
   margin: 0;
   font-size: 1.4rem;
   letter-spacing: 1px;
-  color: #fff;
+  color: var(--text-strong);
 }
 
 .stamp-pill {
@@ -382,8 +419,8 @@ body.highway-body {
   gap: 18px;
   padding: 16px 20px;
   border-radius: 12px;
-  background: #14151b;
-  border: 1px solid #2f3240;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   position: relative;
   transition: all 0.2s ease;
 }
@@ -425,7 +462,7 @@ body.highway-body {
 .card-details h3 {
   margin: 0 0 6px;
   font-size: 1.15rem;
-  color: #fff;
+  color: var(--text-strong);
 }
 
 .specs {
@@ -450,7 +487,7 @@ body.highway-body {
 
 .tag-loc {
   font-size: 0.8rem;
-  color: #94a3b8;
+  color: var(--text-muted);
 }
 
 .card-action {
@@ -530,24 +567,24 @@ body.highway-body {
   gap: 8px;
   font-size: 0.85rem;
   letter-spacing: 1px;
-  color: #cbd5e1;
+  color: var(--text-body);
   font-weight: 600;
 }
 
 .highway-form input,
 .highway-form select {
   padding: 12px 14px;
-  background: #0e0f14;
-  border: 1px solid #374151;
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
   border-radius: 8px;
-  color: #fff;
+  color: var(--text-strong);
   font-family: 'Oswald', sans-serif;
   font-size: 1rem;
 }
 
 .highway-form input:focus,
 .highway-form select:focus {
-  outline: none;
+  /* focusul rămâne vizibil: vezi :focus-visible */
   border-color: var(--road-yellow);
   box-shadow: 0 0 10px rgba(245, 176, 22, 0.4);
 }
@@ -582,8 +619,8 @@ body.highway-body {
 }
 
 .gauge-card {
-  background: #111319;
-  border: 1px solid #2b2e3e;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
   border-radius: 12px;
   padding: 24px 16px;
   text-align: center;
@@ -606,7 +643,7 @@ body.highway-body {
 .gauge-val {
   font-family: 'Bungee', cursive;
   font-size: 2.2rem;
-  color: #fff;
+  color: var(--text-strong);
 }
 
 .gauge-unit {
@@ -640,14 +677,14 @@ body.highway-body {
 }
 
 .fuel-status {
-  color: #94a3b8;
+  color: var(--text-muted);
   font-size: 0.85rem;
 }
 
 .gauge-card h4 {
   margin: 12px 0 0;
   font-size: 1rem;
-  color: #cbd5e1;
+  color: var(--text-body);
 }
 
 /* ========================================================
@@ -660,7 +697,7 @@ body.highway-body {
 }
 
 .rule-box {
-  background: #11131a;
+  background: var(--card-bg);
   border-left: 4px solid var(--neon-red);
   padding: 16px;
   border-radius: 0 8px 8px 0;
@@ -673,7 +710,7 @@ body.highway-body {
 }
 
 .rule-box p {
-  color: #cbd5e1;
+  color: var(--text-body);
   font-size: 0.9rem;
   line-height: 1.5;
 }
@@ -684,12 +721,12 @@ body.highway-body {
 .highway-footer {
   text-align: center;
   padding: 30px 16px 50px;
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.9rem;
 }
 
 .footer-sign {
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--divider);
   padding-top: 20px;
   max-width: 600px;
   margin: 0 auto;
@@ -703,7 +740,7 @@ body.highway-body {
 /* ========================================================
    RESPONSIVITATE / MOBILE
    ======================================================== */
-@media (max-width: 768px) {
+@media (max-width: 700px) {
   .highway-card {
     grid-template-columns: 1fr;
     text-align: left;

@@ -4,7 +4,7 @@
 - Gemini
 
 ## Conversations
-- Conversație privată Gemini (Stage 8 React Router, shared Layout with Outlet, detail page with useParams, 404 page, CSS Modules)
+- https://gemini.google.com/app/6010f7ee60bf6e33 (Stage 8 React Router, shared Layout with Outlet, detail page with useParams, 404 page, CSS Modules)
 
 ## Key requests
 ### 1. Routing and shared layout
