@@ -3,6 +3,7 @@ import { MARIMI_LOCKER } from "../constants.js";
 import styles from "./LockerForm.module.css";
 
 const NUME_MAX = 100;
+const ZONA_MAX = 100;
 
 export default function LockerForm({ onAdd }) {
   const [name, setName] = useState("");
@@ -11,10 +12,16 @@ export default function LockerForm({ onAdd }) {
   const [eroare, setEroare] = useState("");
   const [trimite, setTrimite] = useState(false);
 
+  // Toate câmpurile formularului sunt verificate înainte de orice cerere.
+  // Întoarce mesajul primei probleme găsite, sau "" dacă datele sunt valide.
   function valideaza() {
     const n = name.trim();
+    const z = zone.trim();
     if (n === "") return "Denumirea lockerului este obligatorie.";
     if (n.length > NUME_MAX) return `Denumirea poate avea maximum ${NUME_MAX} de caractere.`;
+    if (!MARIMI_LOCKER.some((m) => m.value === size)) return "Alege o dimensiune validă.";
+    if (z === "") return "Locația / zona hub este obligatorie.";
+    if (z.length > ZONA_MAX) return `Locația poate avea maximum ${ZONA_MAX} de caractere.`;
     return "";
   }
 
@@ -35,7 +42,7 @@ export default function LockerForm({ onAdd }) {
         name: name.trim(),
         rented: false,
         size: size,
-        zone: zone.trim() || "Stație București",
+        zone: zone.trim(),
         slots: { small: 3, medium: 2, large: 1 }
       });
 
@@ -60,7 +67,7 @@ export default function LockerForm({ onAdd }) {
           onChange={(e) => setName(e.target.value)}
           placeholder="Ex: LOCKER B-402 (HUB VIRTUTII)"
           maxLength={NUME_MAX}
-          aria-invalid={Boolean(eroare)}
+          aria-invalid={Boolean(eroare) && name.trim() === ""}
           data-testid="form-title"
         />
       </label>
@@ -87,6 +94,8 @@ export default function LockerForm({ onAdd }) {
           value={zone}
           onChange={(e) => setZone(e.target.value)}
           placeholder="Ex: Bd. Virtuții Km 3"
+          maxLength={ZONA_MAX}
+          aria-invalid={Boolean(eroare) && zone.trim() === ""}
           data-testid="form-zone"
         />
       </label>

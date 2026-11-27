@@ -16,7 +16,7 @@ export default function DesprePage() {
         Aplicația a fost construită pas cu pas, pe parcursul semestrului, în
         cadrul proiectului de Tehnologii Web.
       </p>
-      <p>Stack: React, Vite, React Router, json-server.</p>
+      <p>Stack: React, Vite, React Router, Node.js, Express.</p>
     </section>
   );
 }

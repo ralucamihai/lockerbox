@@ -38,7 +38,7 @@ export default function DashboardPage() {
       {loading && <p className="info">Se încarcă datele...</p>}
       {error && (
         <p className="error">
-          Nu am putut încărca datele: {error}. Rulează <code>npm run api</code>?
+          Nu am putut încărca datele: {error}. Rulează <code>npm run dev</code> în <code>backend/</code>?
         </p>
       )}
       {!loading && !error && <Dashboard lockers={lockers} />}

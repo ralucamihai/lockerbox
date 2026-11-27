@@ -166,7 +166,7 @@ export default function LockersPage() {
         {error && (
           <div className="error" data-testid="error">
             Nu am putut efectua operația: <strong>{error}</strong>. Rulează{" "}
-            <code>npm run api</code> în terminal?
+            <code>npm run dev</code> în <code>backend/</code>?
           </div>
         )}
 

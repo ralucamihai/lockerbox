@@ -33,18 +33,22 @@ Sample data used across all stages:
 Open `index.html` in a browser. No build step, no server.
 Alternatively, run `npx live-server` in the terminal.
 
-For Stages 3 to 8 (React + Vite + React Router + json-server):
-Navigate to the `frontend` directory and run in two terminal windows:
+For Stages 3 to 8 the app is a React + Vite + React Router frontend; since Stage 9 it talks to its own Express backend (no more json-server).
+Run these in two terminal windows (install dependencies first with `npm install` in each folder):
 
 ```bash
-# Terminal 1: Start mock REST API (json-server on port 3001)
-npm run api
+# Terminal 1: Express API on port 3001
+cd backend
+npm install
+npm run dev
 
-# Terminal 2: Start Vite development server
+# Terminal 2: Vite development server on port 5173
+cd frontend
+npm install
 npm run dev
 ```
 
-Visit `http://localhost:5173` in your browser (install dependencies first with `npm install` inside `frontend/`).
+Visit `http://localhost:5173` in your browser. Check that the API is up with `http://localhost:3001/health`.
 
 ## Stage 2: data logic
 
@@ -76,11 +80,43 @@ Lockers can be created directly from the page using a controlled, validated form
 
 The app is split into pages with React Router: the locker list (`/`), a detail page for each locker (`/lockers/:id`), a dashboard (`/dashboard`), a rules page (`/regulament`), an about page (`/despre`) and a 404 page for unknown addresses. A shared `Layout` (header, `NavLink` navigation, footer, day/night button) wraps every page through `<Outlet />`. The detail page reads the id with `useParams()` and requests exactly that locker from the API (`fetchLocker(id)`); a missing id shows an error message and a link back. Component styles moved to CSS Modules (`*.module.css` next to each component); `index.css` keeps only the color variables, the shared background and the common classes.
 
+## Stage 9: own backend
+
+json-server is gone. The API is an Express server in `backend/`, with REST routes, server-side validation and CORS. Data is still kept in memory (the five lockers from the old `db.json` are the starting data) and resets on restart; Stage 10 moves it to MariaDB.
+
+| Route | Answer |
+| ----- | ----- |
+| `GET /lockers` | 200, the list |
+| `GET /lockers/:id` | 200, one locker; 400 for an invalid id, 404 if it does not exist |
+| `POST /lockers` | 201 with the new locker (id given by the server); 400 for invalid data |
+| `PATCH /lockers/:id` | 200 with the updated locker; 400 / 404 |
+| `DELETE /lockers/:id` | 204, no body; 404 if it does not exist |
+| `GET /health` | 200, `{ "status": "ok" }` |
+
+Every error has the same shape, `{ "error": "..." }`, and the frontend shows that message (`api.js` reads `body.error`). The server validates everything it receives (`backend/src/validation.js`): `name` is required (max 100 chars), `size` must be `small`, `medium` or `large` (same values as `frontend/src/constants.js`), `zone` cannot be empty, `rented` must be a boolean, `slots` must hold whole numbers from 0 to 999. Only these known fields are saved, anything else the client sends (for example `id`) is ignored. CORS allows the origin from `CORS_ORIGIN` (default `http://localhost:5173`); see `backend/.env.example`. `app.js` builds the application and `server.js` only opens the port, so the app can be tested without taking a port.
+
+The frontend barely changed: `api.js` reads the server's error message, `db.json`, the `npm run api` script and the `json-server` package were removed, and the form validation from Stage 7 now checks every field (name, size, zone), not only the name.
+
+Try the API from the terminal (Git Bash, WSL or macOS/Linux):
+
+```bash
+curl -s -w ' -> %{http_code}\n' http://localhost:3001/lockers
+curl -s -w ' -> %{http_code}\n' -X POST http://localhost:3001/lockers \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Din curl","size":"medium","zone":"București Depot"}'
+curl -s -w ' -> %{http_code}\n' -X POST http://localhost:3001/lockers \
+  -H "Content-Type: application/json" -d '{"name":""}'
+curl -s -w ' -> %{http_code}\n' http://localhost:3001/lockers/999
+curl -s -w ' -> %{http_code}\n' -X DELETE http://localhost:3001/lockers/6
+```
+
+Automated API tests (no extra dependencies): `cd backend && npm test`.
+
 ## AI usage
 
 | Tool | Used for | 
 | ----- | ----- | 
-| Claude | HTML/CSS structure and explanations, README and AI log (stage 1) | 
+| Claude | HTML/CSS structure and explanations, README and AI log (stage 1), Express backend, server-side validation, API tests and the form validation fix (stage 9) | 
 | Gemini | Permalinks guidance (stage 1), data logic implementation, immutable array functions (stage 2), Vite setup, React components, props architecture, local state, event handling, mock REST API integration, controlled form validation & full CRUD setup (stages 3-7), React Router pages, detail page and CSS Modules (stage 8) | 
 
 Details per stage: see the `ai-log/` folder.
@@ -95,7 +131,8 @@ Details per stage: see the `ai-log/` folder.
 * [x] Stage 6: data from a mock API
 * [x] Stage 7: form and validation
 * [x] Stage 8: routing and detail page
-* [ ] Stage 9: own backend with Express
+* [x] Stage 9: own backend with Express
+* [ ] Stage 10: MariaDB and full CRUD
 
 ## Checklist - Stage 1
 
@@ -196,3 +233,15 @@ Details per stage: see the `ai-log/` folder.
 | S8-R6 | data-testid attributes from tables 7.3 and 8.2; detail route /<resource>/:id | [Layout.jsx](https://github.com/ralucamihai/lockerbox/blob/9f4907e730547741c36bb7f8106d3920af199823/frontend/src/components/Layout.jsx), [LockerCard.jsx](https://github.com/ralucamihai/lockerbox/blob/9f4907e730547741c36bb7f8106d3920af199823/frontend/src/components/LockerCard.jsx), [LockerDetaliuPage.jsx](https://github.com/ralucamihai/lockerbox/blob/9f4907e730547741c36bb7f8106d3920af199823/frontend/src/pages/LockerDetaliuPage.jsx), [NotFoundPage.jsx](https://github.com/ralucamihai/lockerbox/blob/9f4907e730547741c36bb7f8106d3920af199823/frontend/src/pages/NotFoundPage.jsx) | querySelector in the console |
 | S8-R7 | README Stage 8 section + AI log | [README.md](https://github.com/ralucamihai/lockerbox/blob/9f4907e730547741c36bb7f8106d3920af199823/README.md), [ai-log/etapa-08.md](https://github.com/ralucamihai/lockerbox/blob/9f4907e730547741c36bb7f8106d3920af199823/ai-log/etapa-08.md) | read |
 | S8-R8 | commit "Stage 8" pushed | [commit 9f4907e](https://github.com/ralucamihai/lockerbox/commit/9f4907e730547741c36bb7f8106d3920af199823) | commit history |
+
+## Checklist - Stage 9
+
+| ID | Requirement | Where (permalink) | How to check |
+| --- | --- | --- | --- |
+| S9-R1 | npm run dev in backend/ starts the API on 3001 | [backend/package.json](https://github.com/ralucamihai/lockerbox/blob/<commit_hash>/backend/package.json), [server.js](https://github.com/ralucamihai/lockerbox/blob/<commit_hash>/backend/src/server.js) | run it, open /health |
+| S9-R2 | all five routes answer with the right codes | [routes/lockers.js L66-L121](https://github.com/ralucamihai/lockerbox/blob/<commit_hash>/backend/src/routes/lockers.js#L66-L121) | curl commands from README |
+| S9-R3 | invalid data returns 400 with a clear message | [validation.js L20-L91](https://github.com/ralucamihai/lockerbox/blob/<commit_hash>/backend/src/validation.js#L20-L91) | POST with empty name |
+| S9-R4 | React app works with json-server removed | [frontend/package.json](https://github.com/ralucamihai/lockerbox/blob/<commit_hash>/frontend/package.json), [api.js L14-L17](https://github.com/ralucamihai/lockerbox/blob/<commit_hash>/frontend/src/api.js#L14-L17) | stop everything but backend |
+| S9-R5 | no CORS errors in the browser console | [app.js L9-L11 (cors)](https://github.com/ralucamihai/lockerbox/blob/<commit_hash>/backend/src/app.js#L9-L11) | open console |
+| S9-R6 | README Stage 9 section + AI log | [README.md](https://github.com/ralucamihai/lockerbox/blob/<commit_hash>/README.md), [ai-log/etapa-09.md](https://github.com/ralucamihai/lockerbox/blob/<commit_hash>/ai-log/etapa-09.md) | read |
+| S9-R7 | commit "Stage 9" pushed | [Commit Link](https://github.com/ralucamihai/lockerbox/commit/<commit_hash>) | commit history |
